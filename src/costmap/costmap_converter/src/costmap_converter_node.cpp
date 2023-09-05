@@ -220,6 +220,7 @@ class CostmapStandaloneConversion : public rclcpp::Node {
         line_end.x = obstacle.polygon.points[j + 1].x;
         line_end.y = obstacle.polygon.points[j + 1].y;
         line_list.points.push_back(line_end);
+
       }
       // close loop for current polygon
       if (!obstacle.polygon.points.empty() &&

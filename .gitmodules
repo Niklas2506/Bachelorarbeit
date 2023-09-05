@@ -1,0 +1,3 @@
+[submodule "src/convex_hull/src/quickhull"]
+	path = src/convex_hull/src/quickhull
+	url = https://github.com/akuukka/quickhull.git

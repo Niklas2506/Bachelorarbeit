@@ -1,0 +1,9 @@
+<class_libraries>
+    <library path="nav2_bezier_controller">
+        <class type="nav2_bezier_controller::BezierController" base_class_type="nav2_core::Controller">
+            <description>
+                nav2_bezier_controller
+            </description>
+        </class>
+    </library>
+</class_libraries>

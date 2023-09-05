@@ -1,0 +1,35 @@
+bool path_is_valid = true;
+
+  if(transformed_plan.poses.empty())
+  {
+    path_is_valid = false;
+  }
+
+  std::shared_ptr<nav2_costmap_2d::Costmap2DROS> costmap_;
+
+  nav2_costmap_2d::Costmap2D * costmap = costmap_ros_->getCostmap();
+  geometry_msgs::msg::PoseStamped current_pose;
+
+  std::unique_lock<nav2_costmap_2d::Costmap2D::mutex_t> lock(*(costmap_->getMutex()));
+  unsigned int mx = 0;
+  unsigned int my = 0;
+
+  for(unsigned int i = 0; i < transformed_plan.poses.size(); ++i)
+  {
+    costmap_->worldToMap(transformed_plan.poses[i].pose.position.x, transformed_plan.poses[i].pose.position.y, mx, my);
+    unsigned int cost = costmap_->getCost(mx, my);
+
+    if(cost == nav2_costmap_2d::LETHAL_OBSTACLE || cost == nav2_costmap_2d::INSCRIBED_INFLATED_OBSTACLE)
+    {
+      path_is_valid = false;
+    }
+  }
+
+  if(path_is_valid)
+  {
+    RCLCPP_INFO(logger_, "Lokal geplanter Pfad ist valide!");
+  }
+  else
+  {
+    RCLCPP_INFO(logger_, "Lokal geplanter Pfad ist NICHT valide!");
+  }
